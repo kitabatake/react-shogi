@@ -1,0 +1,1 @@
+import reducer from './reducers/index.jsx'
