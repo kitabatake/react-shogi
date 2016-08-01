@@ -5,6 +5,10 @@ class EventProcessor {
     switch(facilitator.state) {
       case 'waitSelect':
         this.waitSelectProcess(x, y)
+        break
+      case 'waitMove':
+        this.waitMoveProcess(x, y)
+        break
     }
   }
 
@@ -13,6 +17,10 @@ class EventProcessor {
     if (koma && koma.owner === facilitator.activePlayer()) {
       facilitator.selectKoma(koma)
     }
+  }
+
+  waitMoveProcess(x, y) {
+    facilitator.moveKoma(x, y)
   }
 }
 

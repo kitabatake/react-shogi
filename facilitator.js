@@ -35,13 +35,6 @@ class Facilitator {
     this.store.updateState(this.players.sente.komas, this.selectedKoma)
   }
 
-  processEvent(event) {
-    switch(this.state) {
-      case 'waitSelect':
-        this.selectAction(action)
-    }
-  }
-
   selectKoma(koma) {
     this.state = 'waitMove'
     this.selectedKoma = koma
@@ -51,6 +44,42 @@ class Facilitator {
   cancelSelectedKoma() {
     this.selectedKoma = null
     this.update()
+  }
+
+  moveKoma(x, y) {
+    if (!this.canMoveKoma(x, y)) return
+    this.selectedKoma.move(x, y)
+
+    var promise = new Promise((resolve, reject) => {
+      if (!this.selectedKoma.canNareru()) {
+        resolve(false)
+        return
+      }
+
+      if (window.confirm('成りますか?')) {
+        resolve(true)
+      }
+      else {
+        resolve(false)
+      }
+    }).then(
+      (naru) => {
+        if (naru) {
+          this.selectedKoma.naru()
+        }
+        this.selectedKoma = null
+        this.state = 'waitSelect'
+        this.update()
+      }
+    )
+  }
+
+  canMoveKoma(x, y) {
+    var flag = true
+    this.activePlayer().komas.forEach(koma => {
+      if (koma.position.x == x && koma.position.y == y) flag = false
+    })
+    return flag
   }
 
   getKomaByGrid(x, y) {

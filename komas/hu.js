@@ -23,9 +23,5 @@ class Hu extends Koma {
     return this.narigoma? 'と' : '歩'
   }
 
-  canNareru() {
-    return false
-  }
-
 }
 export default Hu
