@@ -1,0 +1,18 @@
+#ban {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+#ban td {
+  border: 1px solid #ddd;
+  width: 34px;
+  height: 40px;
+}
+
+.gote_koma {
+  transform: rotate(180deg);
+}
+
+.movable {
+  background: blue;
+}
