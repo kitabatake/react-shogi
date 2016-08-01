@@ -20,7 +20,7 @@ var Ban = React.createClass({
     }
   },
   getCell: function(cols, rows) {
-    var koma = this.props.koma_grids[cols][rows]
+    var koma = this.props.komaGrids[cols][rows]
     var komaComponent = koma? <KomaComponent koma={koma} /> : ''
     return <td className='' key={cols} onClick={this.handleCellClick(koma, cols, rows)}>
       {komaComponent}
