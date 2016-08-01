@@ -10,7 +10,8 @@ const App = React.createClass({
         <Ban 
           komaGrids={this.props.banKomas} 
           selectedKoma={this.props.selectedKoma} />
-        <Komadai komas={this.props.komadaiKomas} />
+        <Komadai className='sente_komadai' komas={this.props.komadaiKomas.sente} />
+        <Komadai className='gote_komadai' komas={this.props.komadaiKomas.gote} />
       </div>
     )
   }

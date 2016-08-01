@@ -14,14 +14,14 @@ class Player {
 
   initSenteKomas() {
     this.komas.push(new Hu({
-      position: {x: 2, y: 6},
+      position: {x: 2, y: 4},
       owner: this
     }))
   }
 
   initGoteKomas() {
     this.komas.push(new Hu({
-      position: {x: 2, y: 2},
+      position: {x: 2, y: 3},
       owner: this
     }))
   }

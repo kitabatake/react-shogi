@@ -93,6 +93,7 @@ class Facilitator {
 
   toruKoma(koma) {
     koma.position = null
+    koma.owner = this.activePlayer()
     this.activePlayer().komas.push(koma)
     this.inactivePlayer().komas = this.inactivePlayer().komas.filter(k => k != koma)
   }
