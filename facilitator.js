@@ -28,6 +28,10 @@ class Facilitator {
     return this.players[this.teban]
   }
 
+  inactivePlayer() {
+    return this.players[this.teban == 'sente'? 'gote' : 'sente']
+  }
+
   setStore(store) {
     this.store = store
   }
@@ -62,24 +66,43 @@ class Facilitator {
         resolve(false)
         return
       }
-
       if (window.confirm('成りますか?')) {
         resolve(true)
       }
       else {
         resolve(false)
       }
-    }).then(
-      (naru) => {
-        if (naru) {
-          this.selectedKoma.naru()
-        }
-        this.selectedKoma = null
-        this.state = 'waitSelect'
-        this.turnChange()
-        this.update()
-      }
-    )
+    }).then(naru => this.movedKoma(naru))
+  }
+
+  movedKoma(naru) {
+    if (naru) {
+      this.selectedKoma.naru()
+    }
+
+    var toreruKoma = this.toreruKoma(this.selectedKoma.position.x, this.selectedKoma.position.y)
+    if (toreruKoma) {
+      this.toruKoma(toreruKoma)
+    }
+
+    this.selectedKoma = null
+    this.state = 'waitSelect'
+    this.turnChange()
+    this.update()
+  }
+
+  toruKoma(koma) {
+    koma.position = null
+    this.activePlayer().komas.push(koma)
+    this.inactivePlayer().komas = this.inactivePlayer().komas.filter(k => k != koma)
+  }
+
+  toreruKoma(x, y) {
+    var koma
+    this.inactivePlayer().komas.forEach(k => {
+      if (k.position.x == x && k.position.y == y) koma = k
+    })
+    return koma
   }
 
   canMoveKoma(x, y) {
@@ -95,7 +118,8 @@ class Facilitator {
     for(let teban in this.players) {
       let player = this.players[teban]
       player.komas.forEach(k => {
-        if (k.position.x == x && k.position.y == y) koma = k
+
+        if (k.isBanjyou() && k.position.x == x && k.position.y == y) koma = k
       })
     }
     return koma

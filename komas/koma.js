@@ -49,6 +49,10 @@ class Koma {
     }
   }
 
+  isBanjyou() {
+    return this.position != null
+  }
+
   naru() {
     this.narigoma = true
   }
