@@ -8,8 +8,20 @@ class Player {
   }
 
   initKomas() {
+    if (this.name == 'sente') this.initSenteKomas()
+    else this.initGoteKomas()
+  }
+
+  initSenteKomas() {
     this.komas.push(new Hu({
-      position: {x: 2, y: 1},
+      position: {x: 2, y: 6},
+      owner: this
+    }))
+  }
+
+  initGoteKomas() {
+    this.komas.push(new Hu({
+      position: {x: 2, y: 2},
       owner: this
     }))
   }

@@ -19,6 +19,7 @@ class Facilitator {
     }
 
     this.players.sente.initKomas()
+    this.players.gote.initKomas()
     this.state = 'waitSelect'
     this.teban = 'sente'
   }
@@ -32,7 +33,9 @@ class Facilitator {
   }
 
   update() {
-    this.store.updateState(this.players.sente.komas, this.selectedKoma)
+    this.store.updateState(
+      this.players.sente.komas.concat(this.players.gote.komas), 
+      this.selectedKoma)
   }
 
   selectKoma(koma) {
@@ -44,6 +47,10 @@ class Facilitator {
   cancelSelectedKoma() {
     this.selectedKoma = null
     this.update()
+  }
+
+  turnChange() {
+    this.teban = this.teban == 'sente'? 'gote' : 'sente'
   }
 
   moveKoma(x, y) {
@@ -69,6 +76,7 @@ class Facilitator {
         }
         this.selectedKoma = null
         this.state = 'waitSelect'
+        this.turnChange()
         this.update()
       }
     )

@@ -8,8 +8,9 @@ var KomaComponent = React.createClass({
     }
   },
   render: function() {
+     var className = this.props.koma.owner.name + '_koma'
     return(
-      <div>
+      <div className={className}>
         {this.props.koma.render()}
       </div>
     )
