@@ -9,16 +9,17 @@ class Facilitator {
     this.players = {}
     this.teban = ''
     this.view = null
+    this.state = ''
   }
 
   init() {
     this.players = {
-      sente: new Player(),
-      gote: new Player()
+      sente: new Player('sente'),
+      gote: new Player('gote')
     }
 
     this.players.sente.initKomas()
-
+    this.state = 'waitSelect'
     this.teban = 'sente'
   }
 
@@ -31,8 +32,39 @@ class Facilitator {
   }
 
   update() {
-    this.store.updateState(this.players.sente.komas)
+    this.store.updateState(this.players.sente.komas, this.selectedKoma)
+  }
+
+  processEvent(event) {
+    switch(this.state) {
+      case 'waitSelect':
+        this.selectAction(action)
+    }
+  }
+
+  selectKoma(koma) {
+    this.state = 'waitMove'
+    this.selectedKoma = koma
+    this.update()
+  }
+
+  cancelSelectedKoma() {
+    this.selectedKoma = null
+    this.update()
+  }
+
+  getKomaByGrid(x, y) {
+    var koma
+    for(let teban in this.players) {
+      let player = this.players[teban]
+      player.komas.forEach(k => {
+        if (k.position.x == x && k.position.y == y) koma = k
+      })
+    }
+    return koma
   }
 }
 
-export default new Facilitator()
+var facilitator = new Facilitator()
+
+export default facilitator

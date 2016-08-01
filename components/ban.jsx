@@ -1,28 +1,39 @@
 import React from 'react';
 import KomaComponent from './koma.jsx'
+import eventProcessor from '../event_processor.js'
 
 var Ban = React.createClass({
   getGrids: function() {
     var trs = []
-    for (let rows = 0; rows < 9; rows++) {
+    for (let y = 0; y < 9; y++) {
       var tds = []
-      for (let cols = 0; cols < 9; cols++) {
-        tds.push(this.getCell(cols, rows))
+      for (let x = 0; x < 9; x++) {
+        tds.push(this.getCell(x, y))
       }
 
-      trs[rows] = <tr key={rows}>{tds}</tr>
+      trs[y] = <tr key={y}>{tds}</tr>
     }
     return trs
   },
-  handleCellClick: function() {
+  handleCellClick: function(x, y) {
     return () => {
-      console.log('cell click!')
+      eventProcessor.clickCell(x, y)
     }
   },
-  getCell: function(cols, rows) {
-    var koma = this.props.komaGrids[cols][rows]
+  getCellClassName: function(x, y) {
+    var classNames = []
+    if (this.props.selectedKoma) {
+      this.props.selectedKoma.getMovablePositions().forEach(position => {
+        if (position.x == x && position.y == y) classNames.push('movable')
+      })
+    }
+
+    return classNames.join(' ')
+  },
+  getCell: function(x, y) {
+    var koma = this.props.komaGrids[y][x]
     var komaComponent = koma? <KomaComponent koma={koma} /> : ''
-    return <td className='' key={cols} onClick={this.handleCellClick(koma, cols, rows)}>
+    return <td className={this.getCellClassName(x, y)} key={x} onClick={this.handleCellClick(x, y)}>
       {komaComponent}
     </td>
   },

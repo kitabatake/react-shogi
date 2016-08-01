@@ -1,14 +1,16 @@
-import Koma from './komas/koma.js'
+import {Hu} from './komas/index.js'
 
 class Player {
-  constructor() {
+  constructor(name) {
+    this.name = name
     this.komas = []
     this.selectedKoma = null
   }
 
   initKomas() {
-    this.komas.push(new Koma({
-      position: {x: 2, y: 1}
+    this.komas.push(new Hu({
+      position: {x: 2, y: 1},
+      owner: this
     }))
   }
 }

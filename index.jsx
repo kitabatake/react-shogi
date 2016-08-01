@@ -7,7 +7,10 @@ import store from './store.js'
 const render = (state) => {
   ReactDOM.render(
     <div>
-      <App banKomas={state.banKomas} komadaiKomas={state.komadaiKomas} />
+      <App 
+        banKomas={state.banKomas}
+        komadaiKomas={state.komadaiKomas}
+        selectedKoma={state.selectedKoma} />
     </div>,
     document.getElementById('container')
   )

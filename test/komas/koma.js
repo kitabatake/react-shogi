@@ -8,7 +8,7 @@ const reset = () => {
 const createKoma = (x = 0, y = 0, owner = 'sente') => {
   var koma = new Koma({
     position: {x, y},
-    owner: owner
+    owner: {name: owner}
   })
   koma.narigomaMovement = {}
   return koma
@@ -19,7 +19,7 @@ describe('Koma#constructor', () => {
     var koma = createKoma(1, 2, 'sente')
     expect(koma.position.x).to.be(1)
     expect(koma.position.y).to.be(2)
-    expect(koma.owner).to.be('sente')
+    expect(koma.owner.name).to.be('sente')
   })
 })
 
@@ -74,10 +74,12 @@ describe('Koma#canNareru', () => {
 describe('Koma#getMovablePositions', () => {
   it('simulates hu movable positions', () => {
     var koma = createKoma(5, 3, 'sente')
-    koma.movement = {
-      num: 1,
-      dx: [0],
-      dy: [-1]
+    koma.getMovement = () => {
+      return {
+        num: 1,
+        dx: [0],
+        dy: [-1]
+      }
     }
 
     var mps = koma.getMovablePositions()
@@ -88,10 +90,12 @@ describe('Koma#getMovablePositions', () => {
 
   it('is gote movable positions', () => {
     var koma = createKoma(5, 3, 'gote')
-    koma.movement = {
-      num: 1,
-      dx: [0],
-      dy: [-1]
+    koma.getMovement = () => {
+      return {
+        num: 1,
+        dx: [0],
+        dy: [-1]
+      }
     }
 
     var mps = koma.getMovablePositions()
@@ -102,15 +106,19 @@ describe('Koma#getMovablePositions', () => {
 
   it('is narigoma movable positions', () => {
     var koma = createKoma(5, 3, 'sente')
-    koma.movement = {
-      num: 1,
-      dx: [0],
-      dy: [-1]
+    koma.getMovement = () => {
+      return {
+        num: 1,
+        dx: [0],
+        dy: [-1]
+      }
     }
-    koma.narigomaMovement = {
-      num: 2,
-      dx: [0, 1],
-      dy: [-1, 1]
+    koma.getNarigomaMovement = () => {
+      return {
+        num: 2,
+        dx: [0, 1],
+        dy: [-1, 1]
+      }
     }
 
     koma.naru()

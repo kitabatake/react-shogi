@@ -9,7 +9,7 @@ var KomaComponent = React.createClass({
   },
   render: function() {
     return(
-      <div onClick={this.handleClick()}>
+      <div>
         {this.props.koma.render()}
       </div>
     )

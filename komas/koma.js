@@ -16,11 +16,9 @@ class Koma {
     owner: ''
   }) {
     this.id = Koma.getId()
-    this.name = 'hoge'
     this.position = options.position
     this.previousPosition = null
     this.owner = options.owner
-    this.nareru = true
     this.narigoma = false
   }
 
@@ -30,7 +28,7 @@ class Koma {
   }
 
   canNareru() {
-    if (this.narigoma || !this.nareru) return false
+    if (this.narigoma) return false
 
     var targetPosition = this.normalizePosition(this.position)
     if (targetPosition.y < 3) return true
@@ -44,7 +42,7 @@ class Koma {
 
   // Normalize position to sente's point of view. 
   normalizePosition(position) {
-    if (this.owner == 'sente') return Object.assign({}, position)
+    if (this.owner.name == 'sente') return Object.assign({}, position)
     return {
       x: position.x,
       y: 8 - position.y
@@ -55,17 +53,16 @@ class Koma {
     this.narigoma = true
   }
 
-  render() {
-    return this.name
+  _render() {
+    return ''
   }
 
-  getMovement() {
-    var movement = this.narigoma? this.narigomaMovement : this.movement
-    return this.normalizeMovement(movement)
+  render() {
+    return this._render()
   }
 
   normalizeMovement(movement) {
-    if (this.owner == 'sente') return Object.assign({}, movement)
+    if (this.owner.name == 'sente') return Object.assign({}, movement)
     return {
       num:movement.num,
       dx: movement.dx,
@@ -75,7 +72,8 @@ class Koma {
 
   getMovablePositions() {
     var positions = []
-    var movement = this.getMovement()
+    var movement = this.narigoma? this.getNarigomaMovement() : this.getMovement()
+    movement = this.normalizeMovement(movement)
     for (var i = 0; i < movement.num; i++) {
       positions.push({
         x: this.position.x + movement.dx[i], 
