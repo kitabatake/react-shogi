@@ -13,8 +13,14 @@ class EventProcessor {
   }
 
   clickMotigoma(koma) {
-    if (koma.owner == facilitator.activePlayer()) {
-      facilitator.selectKoma(koma)
+    switch(facilitator.state) {
+      case 'waitSelect':
+        if (koma.owner == facilitator.activePlayer()) {
+          facilitator.selectKoma(koma)
+        }
+        break
+      case 'waitMove':
+        break
     }
   }
 

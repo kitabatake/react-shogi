@@ -1,6 +1,7 @@
 import {Hu} from './komas/index.js'
 
 class Player {
+
   constructor(name) {
     this.name = name
     this.komas = []
