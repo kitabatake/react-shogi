@@ -53,6 +53,10 @@ class Koma {
     return this.position != null
   }
 
+  samePosition(x, y) {
+    return this.isBanjyou() && this.position.x == x && this.position.y == y
+  }
+
   naru() {
     this.narigoma = true
   }

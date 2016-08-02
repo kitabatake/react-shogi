@@ -101,7 +101,7 @@ class Facilitator {
   toreruKoma(x, y) {
     var koma
     this.inactivePlayer().komas.forEach(k => {
-      if (k.position.x == x && k.position.y == y) koma = k
+      if (k.samePosition(x, y)) koma = k
     })
     return koma
   }
@@ -109,7 +109,7 @@ class Facilitator {
   canMoveKoma(x, y) {
     var flag = true
     this.activePlayer().komas.forEach(koma => {
-      if (koma.position.x == x && koma.position.y == y) flag = false
+      if (koma.samePosition(x, y)) flag = false
     })
     return flag
   }
@@ -119,8 +119,7 @@ class Facilitator {
     for(let teban in this.players) {
       let player = this.players[teban]
       player.komas.forEach(k => {
-
-        if (k.isBanjyou() && k.position.x == x && k.position.y == y) koma = k
+        if (k.samePosition(x, y)) koma = k
       })
     }
     return koma
