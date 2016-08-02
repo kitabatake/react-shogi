@@ -11,7 +11,11 @@ var Komadai = React.createClass({
   renderKomas: function() {
     var komas = []
     this.props.komas.forEach(koma => {
-      komas.push(<KomaComponent key={koma.id} koma={koma} />)
+      komas.push(
+        <KomaComponent
+          key={koma.id}
+          koma={koma} />
+      )
     })
     return komas
   },

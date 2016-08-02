@@ -10,7 +10,8 @@ const render = (state) => {
       <App 
         banKomas={state.banKomas}
         komadaiKomas={state.komadaiKomas}
-        selectedKoma={state.selectedKoma} />
+        selectedKoma={state.selectedKoma}
+        selectedKomaMovablePositions={state.selectedKomaMovablePositions} />
     </div>,
     document.getElementById('container')
   )

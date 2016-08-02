@@ -37,9 +37,17 @@ class Facilitator {
   }
 
   update() {
+    var selectedKomaMovablePositions = this.selectedKoma? this.getMovablePositions(this.selectedKoma) : []
     this.store.updateState(
       this.players.sente.komas.concat(this.players.gote.komas), 
-      this.selectedKoma)
+      this.selectedKoma,
+      selectedKomaMovablePositions
+    )
+  }
+
+  waitSelect() {
+    this.state = 'waitSelect'
+    this.selectedKoma = null
   }
 
   selectKoma(koma) {
@@ -58,7 +66,11 @@ class Facilitator {
   }
 
   moveKoma(x, y) {
-    if (!this.canMoveKoma(x, y)) return
+    if (!this.canMoveKoma(this.selectedKoma, x, y)) {
+      this.waitSelect()
+      this.update()
+      return
+    }
     this.selectedKoma.move(x, y)
 
     var promise = new Promise((resolve, reject) => {
@@ -106,10 +118,47 @@ class Facilitator {
     return koma
   }
 
-  canMoveKoma(x, y) {
-    var flag = true
-    this.activePlayer().komas.forEach(koma => {
-      if (koma.samePosition(x, y)) flag = false
+  getMovablePositions(koma) {
+    var positions
+    if (!koma.isBanjyou()) {
+      positions = this.allPositions()
+    }
+    else {
+      positions = koma.getMovablePositions()
+    }
+
+    positions = positions.filter(position => {
+      var movable = true
+      this.activePlayer().komas.forEach(k => {
+        if (k.samePosition(position.x, position.y)) movable = false
+      })
+      return movable
+    })
+
+    // 駒台の駒は敵の駒の上に移動できない
+    if (!koma.isBanjyou()) {
+      positions = positions.filter(position => {
+        var movable = true
+        this.inactivePlayer().komas.forEach(k => {
+          if (k.samePosition(position.x, position.y)) movable = false
+        })
+        return movable
+      })
+    }
+
+    return positions
+  }
+
+  allPositions() {
+    var positions = []
+    for (let y = 0; y < 9; y++) for(let x = 0; x < 9; x++) positions.push({x:x, y:y})
+    return positions
+  }
+
+  canMoveKoma(koma, x, y) {
+    var flag = false
+    this.getMovablePositions(koma).forEach(position => {
+      if (position.x == x && position.y == y) flag = true
     })
     return flag
   }

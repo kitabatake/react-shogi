@@ -23,7 +23,7 @@ var Ban = React.createClass({
   getCellClassName: function(x, y) {
     var classNames = []
     if (this.props.selectedKoma) {
-      this.props.selectedKoma.getMovablePositions().forEach(position => {
+      this.props.selectedKomaMovablePositions.forEach(position => {
         if (position.x == x && position.y == y) classNames.push('movable')
       })
     }

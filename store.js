@@ -10,18 +10,19 @@
     this.subscribes.push(fn)
   }
 
-  updateState(komas = [], selectedKoma = null) {
-    this.state = this.createState(komas, selectedKoma)
+  updateState(komas = [], selectedKoma = null, selectedKomaMovablePositions = []) {
+    this.state = this.createState(komas, selectedKoma, selectedKomaMovablePositions)
     for(let fn of this.subscribes) {
       fn(this.state)
     }
   }
 
-  createState(komas = [], selectedKoma = null) {
+  createState(komas = [], selectedKoma = null, selectedKomaMovablePositions = []) {
     return {
       banKomas: this.banKomasState(komas),
       komadaiKomas: this.komadaiKomasState(komas),
-      selectedKoma: selectedKoma
+      selectedKoma: selectedKoma,
+      selectedKomaMovablePositions: selectedKomaMovablePositions
     }
   }
 

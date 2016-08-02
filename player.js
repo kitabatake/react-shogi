@@ -24,6 +24,10 @@ class Player {
       position: {x: 2, y: 3},
       owner: this
     }))
+    this.komas.push(new Hu({
+      position: {x: 5, y: 3},
+      owner: this
+    }))
   }
 }
 

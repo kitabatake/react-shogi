@@ -12,6 +12,12 @@ class EventProcessor {
     }
   }
 
+  clickMotigoma(koma) {
+    if (koma.owner == facilitator.activePlayer()) {
+      facilitator.selectKoma(koma)
+    }
+  }
+
   waitSelectProcess(x, y) {
     var koma = facilitator.getKomaByGrid(x, y)
     if (koma && koma.owner === facilitator.activePlayer()) {
