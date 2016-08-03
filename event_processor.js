@@ -25,7 +25,7 @@ class EventProcessor {
   }
 
   waitSelectProcess(x, y) {
-    var koma = facilitator.getKomaByGrid(x, y)
+    var koma = facilitator.getKomaByPosition(x, y)
     if (koma && koma.owner === facilitator.activePlayer()) {
       facilitator.selectKoma(koma)
     }
