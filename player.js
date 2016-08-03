@@ -8,6 +8,10 @@ class Player {
     this.selectedKoma = null
   }
 
+  equals(player) {
+    return this.name == player.name
+  }
+
   initKomas() {
     if (this.name == 'sente') this.initSenteKomas()
     else this.initGoteKomas()

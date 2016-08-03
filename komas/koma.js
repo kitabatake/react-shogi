@@ -57,6 +57,10 @@ class Koma {
     return this.isBanjyou() && this.position.x == x && this.position.y == y
   }
 
+  sameOwner(koma) {
+    return this.owner.equals(koma.owner)
+  }
+
   naru() {
     this.narigoma = true
   }
