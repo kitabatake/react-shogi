@@ -4,18 +4,26 @@ import Koma from './koma.js'
 class Kyousya extends Koma {
 
   getNormaMovement() {
-    var num = this.owner.name == 'sente'?
-      this.position.y : 8 - this.position.y
-    var dx = [], dy = []
-    for(let i = 0; i < num; i++) {
-      dx.push(0)
-      dy.push(i * -1 - 1)
-    }
+    // var num = this.owner.name == 'sente'?
+    //   this.position.y : 8 - this.position.y
+    // var dx = [], dy = []
+    // for(let i = 0; i < num; i++) {
+    //   dx.push(0)
+    //   dy.push(i * -1 - 1)
+    // }
+
+    // return {
+    //   num: num,
+    //   dx: dx,
+    //   dy: dy
+    // }
 
     return {
-      num: num,
-      dx: dx,
-      dy: dy
+      goOn: {
+        num: 1,
+        dx: [0],
+        dy: [-1]
+      }
     }
   }
 

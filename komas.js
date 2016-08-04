@@ -40,6 +40,9 @@ class Komas {
     if (movement.normal) {
       positions.push(... this.getOriginalNormalMovablePositions(movement.normal, koma.position))
     }
+    if (movement.goOn) {
+      positions.push(... this.getOriginalGoOnMovablePositions(movement.goOn, koma.position))
+    }
     return positions
   }
 
@@ -50,8 +53,30 @@ class Komas {
         x: position.x + movement.dx[i], 
         y: position.y + movement.dy[i]})
     }
+    return positions
+  }
+
+  getOriginalGoOnMovablePositions(movement, position) {
+    var positions = []
+    for (let i = 0; i < movement.num; i++) {
+      let goOnNum = 1
+      while(true) {
+        var p = {
+          x: position.x + (movement.dx[i] * goOnNum),
+          y: position.y + (movement.dy[i] * goOnNum)
+        }
+
+        if (!this.onBan(p.x, p.y) || this.getKomaByPosition(p.x, p.y)) break
+        positions.push(p)
+        goOnNum++
+      }
+    }
 
     return positions
+  }
+
+  onBan(x, y) {
+    return x >= 0 && x <= 8 && y >= 0 && y <= 8
   }
 
   allPositions() {

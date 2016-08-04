@@ -1,10 +1,17 @@
 import expect from 'expect.js'
 import Komas from '../komas.js'
-import {Hu} from '../komas/index.js'
+import {Hu, Kyousya} from '../komas/index.js'
 import Player from '../player'
 
 function getHu(x, y, ownerName = 'sente') {
   return new Hu({
+    position: {x: x, y: y},
+    owner: new Player(ownerName)
+  })
+}
+
+function getKyousya(x, y, ownerName = 'sente') {
+  return new Kyousya({
     position: {x: x, y: y},
     owner: new Player(ownerName)
   })
@@ -44,6 +51,31 @@ describe('Komas#getOriginalMovablePositions', () => {
 
     var positions = komas.getOriginalMovablePositions(hu)
     expect(positions.length).to.be(6)
+  })
+
+  it('go on movable(Kyousya) positions', () => {
+    var komas = new Komas()
+    var kyousya = getKyousya(0, 8)
+    var positions = komas.getOriginalMovablePositions(kyousya)
+    expect(positions.length).to.be(8)
+
+    var expectY = 7
+    positions.forEach(position => {
+      expect(position.x).to.be(0)
+      expect(position.y).to.be(expectY)
+      expectY--
+    })
+  })
+
+  it('go on movable with obstacle', () => {
+    var komas = new Komas()
+    komas.addKoma(getHu(0, 5))
+
+    var kyousya = getKyousya(0, 8)
+    var positions = komas.getOriginalMovablePositions(kyousya)
+    expect(positions.length).to.be(2)
+    expect(positions[0].y).to.be(7)
+    expect(positions[1].y).to.be(6)
   })
 })
 

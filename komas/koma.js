@@ -83,6 +83,13 @@ class Koma {
         dy: movement.normal.dy.map(y => -y)
       }
     }
+    if (movement.goOn) {
+      normalized.goOn = {
+        num:movement.goOn.num,
+        dx: movement.goOn.dx,
+        dy: movement.goOn.dy.map(y => -y)
+      }
+    }
 
     return normalized
   }
