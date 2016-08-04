@@ -27,6 +27,12 @@ class Facilitator {
     this.teban = 'sente'
   }
 
+  restart() {
+    this.komas = new Komas()
+    this.init()
+    this.update()
+  }
+
   activePlayer() {
     return this.players[this.teban]
   }
@@ -67,6 +73,8 @@ class Facilitator {
   turnChange() {
     if (this.komas.tsumi(this.inactivePlayer().ou)) {
       console.log('tsumi!')
+      this.restart()
+      return
     }
     this.teban = this.teban == 'sente'? 'gote' : 'sente'
   }

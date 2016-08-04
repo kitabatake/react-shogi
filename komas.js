@@ -150,7 +150,6 @@ class Komas {
   }
 
   tsumi(ou) {
-    console.log(ou)
     var movableGrids = []
     for (let y = 0; y < 9; y++) {
       movableGrids[y] = []
