@@ -3,19 +3,24 @@ import Koma from './koma.js'
 
 class Gin extends Koma {
 
-  getMovement() {
+  getNormaMovement() {
     return {
-      num: 5,
-      dx: [-1, 0, 1, -1, 1],
-      dy: [-1, -1, -1, 1, 1]
+      normal: {
+        num: 5,
+        dx: [-1, 0, 1, -1, 1],
+        dy: [-1, -1, -1, 1, 1]
+      }
     }
   }
 
   getNarigomaMovement() {
     return {
-      num: 6,
-      dx: [-1, 0, 1, -1, 1, 0],
-      dy: [-1, -1, -1, 0, 0, 1]
+      normal: {
+        num: 6,
+        dx: [-1, 0, 1, -1, 1, 0],
+        dy: [-1, -1, -1, 0, 0, 1]
+      }
+     
     }
   }
 

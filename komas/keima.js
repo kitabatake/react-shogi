@@ -3,19 +3,23 @@ import Koma from './koma.js'
 
 class Keima extends Koma {
 
-  getMovement() {
+  getNormaMovement() {
     return {
-      num: 2,
-      dx: [-1, 1],
-      dy: [-2, -2]
+      normal: {
+        num: 2,
+        dx: [-1, 1],
+        dy: [-2, -2]
+      }
     }
   }
 
   getNarigomaMovement() {
     return {
-      num: 6,
-      dx: [-1, 0, 1, -1, 1, 0],
-      dy: [-1, -1, -1, 0, 0, 1]
+      normal: {
+        num: 6,
+        dx: [-1, 0, 1, -1, 1, 0],
+        dy: [-1, -1, -1, 0, 0, 1]
+      }
     }
   }
 

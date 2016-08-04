@@ -75,24 +75,21 @@ class Koma {
 
   normalizeMovement(movement) {
     if (this.owner.name == 'sente') return Object.assign({}, movement)
-    return {
-      num:movement.num,
-      dx: movement.dx,
-      dy: movement.dy.map(y => -y)
+    var normalized = {}
+    if (movement.normal) {
+      normalized.normal = {
+        num:movement.normal.num,
+        dx: movement.normal.dx,
+        dy: movement.normal.dy.map(y => -y)
+      }
     }
+
+    return normalized
   }
 
-  getMovablePositions() {
-    var positions = []
-    var movement = this.narigoma? this.getNarigomaMovement() : this.getMovement()
-    movement = this.normalizeMovement(movement)
-    for (var i = 0; i < movement.num; i++) {
-      positions.push({
-        x: this.position.x + movement.dx[i], 
-        y: this.position.y + movement.dy[i]})
-    }
-
-    return positions
+  getMovement() {
+    var movement = this.narigoma? this.getNarigomaMovement() : this.getNormaMovement()
+    return this.normalizeMovement(movement)
   }
 }
 

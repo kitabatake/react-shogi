@@ -16,7 +16,7 @@ class Komas {
       positions = this.allPositions()
     }
     else {
-      positions = koma.getMovablePositions()
+      positions = this.getOriginalMovablePositions(koma)
     }
 
     positions = positions.filter(position => {
@@ -30,6 +30,26 @@ class Komas {
       })
       return movable
     })
+
+    return positions
+  }
+
+  getOriginalMovablePositions(koma) {
+    var positions = []
+    var movement = koma.getMovement()
+    if (movement.normal) {
+      positions.push(... this.getOriginalNormalMovablePositions(movement.normal, koma.position))
+    }
+    return positions
+  }
+
+  getOriginalNormalMovablePositions(movement, position) {
+    var positions = []
+    for (var i = 0; i < movement.num; i++) {
+      positions.push({
+        x: position.x + movement.dx[i], 
+        y: position.y + movement.dy[i]})
+    }
 
     return positions
   }

@@ -10,7 +10,7 @@ function getHu(x, y, ownerName = 'sente') {
   })
 }
 
-describe('canMoveKoma', () => {
+describe('Komas#canMoveKoma', () => {
 
   it('is normal case', () => {
     var komas = new Komas()
@@ -20,7 +20,34 @@ describe('canMoveKoma', () => {
   })
 })
 
-describe('getMovablePositions', () => {
+describe('Komas#getOriginalMovablePositions', () => {
+  it('is hu movable positions', () => {
+    var komas = new Komas()
+    var positions = komas.getOriginalMovablePositions(getHu(3, 3))
+    expect(positions.length).to.be(1)
+    expect(positions[0].x).to.be(3)
+    expect(positions[0].y).to.be(2)
+  })
+
+  it('is gote movable positions', () => {
+    var komas = new Komas()
+    var positions = komas.getOriginalMovablePositions(getHu(3, 3, 'gote'))
+    expect(positions.length).to.be(1)
+    expect(positions[0].x).to.be(3)
+    expect(positions[0].y).to.be(4)
+  })
+
+  it('is narigoma movable positions', () => {
+    var komas = new Komas()
+    var hu = getHu(3,3)
+    hu.naru()
+
+    var positions = komas.getOriginalMovablePositions(hu)
+    expect(positions.length).to.be(6)
+  })
+})
+
+describe('Komas#getMovablePositions', () => {
   it('is empty komas case', () => {
     var komas = new Komas()
     var positions = komas.getMovablePositions(getHu(3, 3))
@@ -55,7 +82,7 @@ describe('getMovablePositions', () => {
   })
 })
 
-describe('getKomaByPosition', () => {
+describe('Komas#getKomaByPosition', () => {
   it('is common case', () => {
     var komas = new Komas()
     expect(komas.getKomaByPosition(1, 1)).to.be(null)
@@ -66,7 +93,7 @@ describe('getKomaByPosition', () => {
   })
 })
 
-describe('toreruKoma', () => {
+describe('Komas#toreruKoma', () => {
   it('is common case', () => {
     var komas = new Komas()
     var sente = new Player('sente')

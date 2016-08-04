@@ -3,11 +3,13 @@ import Koma from './koma.js'
 
 class Ou extends Koma {
 
-  getMovement() {
+  getNormaMovement() {
     return {
-      num: 8,
-      dx: [-1, 0, 1, -1, 1, -1, 0, 1],
-      dy: [-1, -1, -1, 0, 0, 1, 1, 1]
+      normal : {
+        num: 8,
+        dx: [-1, 0, 1, -1, 1, -1, 0, 1],
+        dy: [-1, -1, -1, 0, 0, 1, 1, 1]
+      } 
     }
   }
 

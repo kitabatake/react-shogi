@@ -3,7 +3,7 @@ import Koma from './koma.js'
 
 class Kyousya extends Koma {
 
-  getMovement() {
+  getNormaMovement() {
     var num = this.owner.name == 'sente'?
       this.position.y : 8 - this.position.y
     var dx = [], dy = []
@@ -21,9 +21,11 @@ class Kyousya extends Koma {
 
   getNarigomaMovement() {
     return {
-      num: 6,
-      dx: [-1, 0, 1, -1, 1, 0],
-      dy: [-1, -1, -1, 0, 0, 1]
+      normal: {
+        num: 6,
+        dx: [-1, 0, 1, -1, 1, 0],
+        dy: [-1, -1, -1, 0, 0, 1]
+      }
     }
   }
 
