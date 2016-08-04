@@ -139,6 +139,11 @@ class Komas {
     return koma
   }
 
+  isForciblyNaru(koma) {
+    var mp = this.getOriginalMovablePositions(koma)
+    return !koma.narigoma && mp.length == 0
+  }
+
   toruKoma(koma, player) {
     koma.position = null
     koma.owner = player

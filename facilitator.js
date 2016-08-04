@@ -79,6 +79,11 @@ class Facilitator {
         resolve(false)
         return
       }
+
+      if (this.komas.isForciblyNaru(this.selectedKoma)) {
+        resolve(true)
+        return
+      }
       if (window.confirm('成りますか?')) {
         resolve(true)
       }

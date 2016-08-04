@@ -146,3 +146,19 @@ describe('Komas#toreruKoma', () => {
     expect(komas.toreruKoma(0, 1, sente)).to.be(null)
   })
 })
+
+describe('Komas#isForciblyNaru', () => {
+  it('is true case ', () => {
+    var komas = new Komas()
+    var hu = getHu(0, 1)
+    hu.move(0, 0)
+    expect(komas.isForciblyNaru(hu)).to.be(true)
+  })
+
+  it('is false case ', () => {
+    var komas = new Komas()
+    var hu = getHu(0, 3)
+    hu.move(0, 2)
+    expect(komas.isForciblyNaru(hu)).to.be(false)
+  })
+})
