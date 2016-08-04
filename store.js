@@ -2,7 +2,7 @@
  class Store {
 
   constructor() {
-    this.state = this.createState()
+    this.state = {}
     this.subscribes = []
   }
 
@@ -11,18 +11,15 @@
   }
 
   updateState(komas = [], selectedKoma = null, selectedKomaMovablePositions = []) {
-    this.state = this.createState(komas, selectedKoma, selectedKomaMovablePositions)
-    for(let fn of this.subscribes) {
-      fn(this.state)
-    }
-  }
-
-  createState(komas = [], selectedKoma = null, selectedKomaMovablePositions = []) {
-    return {
+    this.state = {
       banKomas: this.banKomasState(komas),
       komadaiKomas: this.komadaiKomasState(komas),
       selectedKoma: selectedKoma,
       selectedKomaMovablePositions: selectedKomaMovablePositions
+    }
+
+    for(let fn of this.subscribes) {
+      fn(this.state)
     }
   }
 
