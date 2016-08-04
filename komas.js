@@ -41,7 +41,7 @@ class Komas {
       positions.push(... this.getOriginalNormalMovablePositions(movement.normal, koma.position))
     }
     if (movement.goOn) {
-      positions.push(... this.getOriginalGoOnMovablePositions(movement.goOn, koma.position))
+      positions.push(... this.getOriginalGoOnMovablePositions(movement.goOn, koma.position, koma.owner))
     }
     return positions
   }
@@ -56,7 +56,7 @@ class Komas {
     return positions
   }
 
-  getOriginalGoOnMovablePositions(movement, position) {
+  getOriginalGoOnMovablePositions(movement, position, owner) {
     var positions = []
     for (let i = 0; i < movement.num; i++) {
       let goOnNum = 1
@@ -66,7 +66,15 @@ class Komas {
           y: position.y + (movement.dy[i] * goOnNum)
         }
 
-        if (!this.onBan(p.x, p.y) || this.getKomaByPosition(p.x, p.y)) break
+        if (!this.onBan(p.x, p.y)) break
+
+        let obstacleKoma = this.getKomaByPosition(p.x, p.y)
+        if (obstacleKoma) {
+          if (!obstacleKoma.owner.equals(owner)) {
+            positions.push(p)
+          }
+          break
+        }
         positions.push(p)
         goOnNum++
       }

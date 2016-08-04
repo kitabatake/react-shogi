@@ -69,13 +69,21 @@ describe('Komas#getOriginalMovablePositions', () => {
 
   it('go on movable with obstacle', () => {
     var komas = new Komas()
-    komas.addKoma(getHu(0, 5))
+    var hu = getHu(0, 5)
+    komas.addKoma(hu)
 
     var kyousya = getKyousya(0, 8)
     var positions = komas.getOriginalMovablePositions(kyousya)
     expect(positions.length).to.be(2)
     expect(positions[0].y).to.be(7)
     expect(positions[1].y).to.be(6)
+
+    // hu.owner.name = 'gote'
+    // var positions = komas.getOriginalMovablePositions(kyousya)
+    // expect(positions.length).to.be(3)
+    // expect(positions[0].y).to.be(7)
+    // expect(positions[1].y).to.be(6)
+    // expect(positions[1].y).to.be(5)
   })
 })
 
