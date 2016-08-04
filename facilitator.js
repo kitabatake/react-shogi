@@ -19,8 +19,10 @@ class Facilitator {
       sente: new Player('sente'),
       gote: new Player('gote')
     }
-
-    this.komas.initKomas(this.players.sente, this.players.gote)
+    var ous = this.komas.initKomas(this.players.sente, this.players.gote)
+    this.players.sente.setOu(ous.sente)
+    this.players.gote.setOu(ous.gote)
+    
     this.waitSelect()
     this.teban = 'sente'
   }
@@ -63,6 +65,9 @@ class Facilitator {
   }
 
   turnChange() {
+    if (this.komas.tsumi(this.inactivePlayer().ou)) {
+      console.log('tsumi!')
+    }
     this.teban = this.teban == 'sente'? 'gote' : 'sente'
   }
 

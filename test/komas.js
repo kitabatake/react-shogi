@@ -1,6 +1,6 @@
 import expect from 'expect.js'
 import Komas from '../komas.js'
-import {Hu, Kyousya} from '../komas/index.js'
+import {Hu, Kyousya, Ou, Kin} from '../komas/index.js'
 import Player from '../player'
 
 function getHu(x, y, ownerName = 'sente') {
@@ -160,5 +160,49 @@ describe('Komas#isForciblyNaru', () => {
     var hu = getHu(0, 3)
     hu.move(0, 2)
     expect(komas.isForciblyNaru(hu)).to.be(false)
+  })
+})
+
+describe('Komas#tsumi', () => {
+  it('is tsumu case', () => {
+    var komas = new Komas()
+    var sente = new Player('sente')
+    var gote = new Player('gote')
+
+    var ou = new Ou({
+      position: {x:0, y:0},
+      owner: gote
+    })
+    komas.addKoma(ou)
+
+    komas.addKoma(new Kin({
+      position: {x: 0, y: 1},
+      owner: sente
+    }))
+    komas.addKoma(new Hu({
+      position: {x: 0, y: 2},
+      owner: sente
+    }))
+
+    expect(komas.tsumi(ou)).to.be(true)
+  })
+
+  it('is tsumanai case', () => {
+    var komas = new Komas()
+    var sente = new Player('sente')
+    var gote = new Player('gote')
+    
+    var ou = new Ou({
+      position: {x:0, y:0},
+      owner: gote
+    })
+    komas.addKoma(ou)
+
+    komas.addKoma(new Kin({
+      position: {x: 0, y: 1},
+      owner: sente
+    }))
+
+    expect(komas.tsumi(ou)).to.be(false)
   })
 })

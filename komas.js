@@ -149,6 +149,35 @@ class Komas {
     koma.owner = player
   }
 
+  tsumi(ou) {
+    console.log(ou)
+    var movableGrids = []
+    for (let y = 0; y < 9; y++) {
+      movableGrids[y] = []
+      for (let x = 0; x < 9; x++) movableGrids[y][x] = true
+    }
+
+    this.komas.forEach(koma => {
+      if (!koma.isBanjyou()) return
+      if (koma.sameOwner(ou)) {
+        movableGrids[koma.position.y][koma.position.x] = false
+      }
+      else {
+        let positions = this.getOriginalMovablePositions(koma)
+        positions.forEach(position => {
+          movableGrids[position.y][position.x] = false
+        })
+      }
+    })
+
+    var movableCount = 0
+    this.getOriginalMovablePositions(ou).forEach(position => {
+      if (movableGrids[position.y][position.x])
+        movableCount++
+    })
+    return movableCount == 0
+  }
+
   initKomas(sente, gote) {
     this.komas.push(new Kyousya({
       position: {x: 0, y: 8},
@@ -164,10 +193,6 @@ class Komas {
     }))
     this.komas.push(new Kin({
       position: {x: 3, y: 8},
-      owner: sente
-    }))
-    this.komas.push(new Ou({
-      position: {x: 4, y: 8},
       owner: sente
     }))
     this.komas.push(new Kin({
@@ -220,10 +245,6 @@ class Komas {
       position: {x: 3, y: 0},
       owner: gote
     }))
-    this.komas.push(new Ou({
-      position: {x: 4, y: 0},
-      owner: gote
-    }))
     this.komas.push(new Kin({
       position: {x: 5, y: 0},
       owner: gote
@@ -246,6 +267,23 @@ class Komas {
         position: {x: i, y: 2},
         owner: gote
       }))
+    }
+
+    var senteOu = new Ou({
+      position: {x: 4, y: 8},
+      owner: sente
+    })
+    this.komas.push(senteOu)
+
+    var goteOu = new Ou({
+      position: {x: 4, y: 0},
+      owner: gote
+    })
+    this.komas.push(goteOu)
+
+    return {
+      sente: senteOu,
+      gote: goteOu
     }
   }
 
