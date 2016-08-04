@@ -23,12 +23,18 @@ class Koma {
   }
 
   move(x, y) {
-    this.previousPosition = Object.assign({}, this.position)
+    if (this.position == null) {
+      this.previousPosition = null
+    }
+    else {
+      this.previousPosition = Object.assign({}, this.position)
+    }
+    
     this.position = {x:x, y:y}
   }
 
   canNareru() {
-    if (this.narigoma) return false
+    if (this.narigoma || this.previousPosition == null) return false
 
     var targetPosition = this.normalizePosition(this.position)
     if (targetPosition.y < 3) return true

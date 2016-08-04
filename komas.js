@@ -13,7 +13,7 @@ class Komas {
   getMovablePositions(koma) {
     var positions
     if (!koma.isBanjyou()) {
-      positions = this.allPositions()
+      positions = this.getUtsuMovablePositions(koma)
     }
     else {
       positions = this.getOriginalMovablePositions(koma)
@@ -49,9 +49,14 @@ class Komas {
   getOriginalNormalMovablePositions(movement, position) {
     var positions = []
     for (var i = 0; i < movement.num; i++) {
-      positions.push({
-        x: position.x + movement.dx[i], 
-        y: position.y + movement.dy[i]})
+      let dx = position.x + movement.dx[i]
+      let dy = position.y + movement.dy[i]
+      if (this.onBan(dx, dy)) {
+        positions.push({
+          x: dx,
+          y: dy
+        })
+      }
     }
     return positions
   }
@@ -87,6 +92,23 @@ class Komas {
     return x >= 0 && x <= 8 && y >= 0 && y <= 8
   }
 
+  getOriginalMovablePositionsIfPositionIs(x, y, koma) {
+    var originalPosition = Object.assign(null, koma.position)
+    koma.position = {x: x, y: y}
+    var target = this.getOriginalMovablePositions(koma)
+    koma.position = originalPosition
+    return target
+  }
+
+  getUtsuMovablePositions(koma) {
+    var positions = this.allPositions().filter(position => {
+      koma.position = position
+      let assumedPostions = this.getOriginalMovablePositions(koma)
+      return assumedPostions.length > 0
+    })
+    koma.position = null
+    return positions
+  }
   allPositions() {
     var positions = []
     for (let y = 0; y < 9; y++) for(let x = 0; x < 9; x++) positions.push({x:x, y:y})

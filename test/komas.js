@@ -78,12 +78,9 @@ describe('Komas#getOriginalMovablePositions', () => {
     expect(positions[0].y).to.be(7)
     expect(positions[1].y).to.be(6)
 
-    // hu.owner.name = 'gote'
-    // var positions = komas.getOriginalMovablePositions(kyousya)
-    // expect(positions.length).to.be(3)
-    // expect(positions[0].y).to.be(7)
-    // expect(positions[1].y).to.be(6)
-    // expect(positions[1].y).to.be(5)
+    hu.owner.name = 'gote'
+    var positions = komas.getOriginalMovablePositions(kyousya)
+    expect(positions.length).to.be(3)
   })
 })
 
@@ -110,7 +107,7 @@ describe('Komas#getMovablePositions', () => {
       owner: {name: 'sente'}
     }))
 
-    expect(positions.length).to.be(81)
+    expect(positions.length).to.be(81 - 9)
 
     komas.addKoma(getHu(3, 2))
     komas.addKoma(getHu(3, 3, 'gote'))
@@ -118,7 +115,7 @@ describe('Komas#getMovablePositions', () => {
       position: null,
       owner: new Player('sente')
     }))
-    expect(positions.length).to.be(79)
+    expect(positions.length).to.be(81 - 9 - 2)
   })
 })
 

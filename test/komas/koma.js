@@ -53,6 +53,12 @@ describe('Koma#canNareru', () => {
     koma.naru()
     koma.move(5, 8)
     expect(koma.canNareru()).to.be(false)
+
+    // utsu situation
+    koma = createKoma(5, 2, 'sente')
+    koma.position = null
+    koma.move(5, 2)
+    expect(koma.canNareru()).to.be(false)
   })
 
   it('is nareru situations', () => {
