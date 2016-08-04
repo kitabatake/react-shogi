@@ -1,4 +1,4 @@
-import {Hu, Kyousya, Keima, Gin, Kin, Ou} from './komas/index.js'
+import {Hu, Kyousya, Keima, Gin, Kin, Ou, Hisya, Kaku} from './komas/index.js'
 
 class Komas {
 
@@ -157,6 +157,15 @@ class Komas {
     }))
     this.komas.push(new Kyousya({
       position: {x: 8, y: 8},
+      owner: sente
+    }))
+
+    this.komas.push(new Hisya({
+      position: {x: 7, y: 7},
+      owner: sente
+    }))
+    this.komas.push(new Kaku({
+      position: {x: 1, y: 7},
       owner: sente
     }))
 
